@@ -44,8 +44,10 @@ public class Member {
 
     // Add service
 	// TODO
-    public void addService() {
-
+    public void addService(Service service) {
+		if(!this.services.contains(service)){
+			this.services.add(service);
+		}
     }
 
 	// Remove service
@@ -54,13 +56,17 @@ public class Member {
 
 	}
 
-    // Take care of amount <0 -> can't create task ??
+	// Add to Member's Wallet
+	// Return IllegalArgumentException if mcoins < 0
     public void creditWallet(int mcoins) throws IllegalArgumentException {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
     	this.wallet += mcoins;
     }
 
-	public void debitWallet(int mcoins) throws IllegalArgumentException,MissAmountException {
+	// Remove from Member's Wallet
+	// Return IllegalArgumentException if mcoins < 0
+	// Return MissAmountException if mcoins > wallet
+	public void debitWallet(int mcoins) throws IllegalArgumentException, MissAmountException {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
 		else if(mcoins > this.wallet) throw new MissAmountException("ERR: not enough coins", mcoins-this.wallet, this.wallet);
 		this.wallet += mcoins;

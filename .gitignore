@@ -1,0 +1,21 @@
+# IntellJ
+.idea/
+*.iml
+
+# Maven
+target/
+
+# OSX
+.DS_Store
+
+# Java
+*.class
+.vscode/launch.json
+launch.json
+doc
+bin
+
+# Eclipse
+.classpath
+.project
+.settings

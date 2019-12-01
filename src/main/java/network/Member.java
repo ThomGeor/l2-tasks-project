@@ -1,4 +1,4 @@
-package reseauEchange;
+package network;
 
 import java.util.ArrayList;
 

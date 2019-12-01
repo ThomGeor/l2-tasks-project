@@ -1,4 +1,4 @@
-package reseauEchange;
+package network;
 
 public class SocialClassZero {
 

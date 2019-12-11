@@ -10,7 +10,10 @@ public class Member {
     private String name;
     private SocialClass socialClass;
     private ArrayList<Service> services;
-
+    private ArrayList<Network> network;
+    
+    
+    
 	public int getWallet() {
 		return wallet;
 	}

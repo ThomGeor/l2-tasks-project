@@ -1,8 +1,8 @@
 package network;
 
-public abstract class SocialClass {
+public interface SocialClass {
 	
-	public SocialClass() {
-		
-	}
+	// fonction implementer dans les socialClass Zero, Half, Normal
+	public int calc(int price);
+	
 }

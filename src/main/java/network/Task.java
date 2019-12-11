@@ -16,8 +16,8 @@ public class Task {
 		this.beneficiary    = beneficiary; 
 		this.participants   = participants;
 		this.duration       = duration;
-    this.volunteer      = volunteer;
-    this.finished       = false;
+		this.volunteer      = volunteer;
+		this.finished       = false;
 	}
   
   // Return cost of the task according to beneficiary's class, duration and number of participants

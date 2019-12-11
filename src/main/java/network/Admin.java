@@ -8,12 +8,14 @@ import java.util.ArrayList;
  */
 public class Admin extends Member {
     private ArrayList<Member> networkList;
+    private ArrayList<Task> taskList; 
     private String nameOfNetwork;
     private Network network;
 
     public Admin(int wallet, String name, SocialClass socialClass) {
         super(wallet, name, socialClass);
         this.networkList = new ArrayList<Member>();
+        this.taskList    = new ArrayList<Task>();
     }
     
     public Admin(String name, SocialClass socialClass, Network network){

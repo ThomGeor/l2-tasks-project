@@ -10,7 +10,6 @@ public class Member {
     private String name;
     private SocialClass socialClass;
     private ArrayList<Service> services;
-    private ArrayList<Network> network;
     
     
     
@@ -55,8 +54,19 @@ public class Member {
 
 	// Remove service
 	// TODO
-	public void removeService() {
-
+	public void removeService(Service service) {
+		int i = 0; 
+		
+		while(services.get(i) != service) {
+			i++; 
+		}
+		
+		services.remove(i); 
+	}
+	
+	public createTasks(Service service, int time, ) {
+		//Service service, Member beneficiary, ArrayList<Member> participants, double duration, boolean volunteer
+		return new Task 
 	}
 
 	// Add to Member's Wallet

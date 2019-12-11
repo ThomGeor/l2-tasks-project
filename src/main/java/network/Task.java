@@ -6,15 +6,16 @@ public class Task {
     private Service service;
     private Member beneficiary;
 	private ArrayList<Member> participants;
+	private int numberParticipants;
     private double duration;
     private int cost; // Save the cost if the task is executed
     private boolean volunteer;
     private boolean finished; // The admin can finish it when participants are found
 
-    public Task(Service service, Member beneficiary, ArrayList<Member> participants, double duration, boolean volunteer) {
+    public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) {
         this.service = service;
         this.beneficiary = beneficiary;
-        this.participants = participants;
+        this.numberParticipants = numberParticipants;
         this.duration = duration;
         this.volunteer = volunteer;
         this.finished = false;
@@ -32,6 +33,10 @@ public class Task {
 
 	public Member getBeneficiary() {
 		return beneficiary;
+	}
+
+	public int getNumberParticipants() {
+		return numberParticipants;
 	}
 
 	public ArrayList<Member> getParticipants() {
@@ -54,7 +59,21 @@ public class Task {
 	 * Find all participants in the Beneficiary's Network
 	 * */
 	public void findParticipants(){
-		
+		// Construct the list of Members that can do this Service
+		ArrayList<Member> potentialParticipants = new ArrayList<Member>();
+		for(Member member : this.beneficiary.getNetwork().getNetworkList()){
+			// The member can do the Service
+			if(member.getServices().contains(this.service)){
+				potentialParticipants.add(member);
+			}
+		}
+
+		// Choose the number of participants
+		for(int i=0; i<this.numberParticipants; i++){
+			
+
+			this.participants.add(potentialParticipants.get());
+		}
 	}
 
     // Executes the task, pay the participants and debits the beneficiary

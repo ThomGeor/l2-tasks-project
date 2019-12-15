@@ -11,7 +11,10 @@ public class Network {
 	}
 	
 	public void addMember(Member member) {
-		network.add(member); 
+		if(member.getInCurrentNetwork()) {
+			network.add(member);
+			member.inNetwork(); 
+		}
 	}
 	
 	public void removeMember(Member member) {
@@ -22,5 +25,6 @@ public class Network {
 		}
 		
 		network.remove(indice); 
+		member.inNetwork();
 	}
 }

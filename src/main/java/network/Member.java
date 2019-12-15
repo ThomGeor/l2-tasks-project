@@ -10,6 +10,7 @@ public class Member {
     private String name;
     private SocialClass socialClass;
     private ArrayList<Service> services;
+    private boolean inCurrentNetwork; 
     
     
     
@@ -28,6 +29,10 @@ public class Member {
 	public ArrayList<Service> getServices() {
 		return services;
 	}
+	
+	public boolean getInCurrentNetwork() {
+		return this.inCurrentNetwork;
+	}
 
 	// With initial wallet amount
     public Member(int wallet, String name, SocialClass socialClass) {
@@ -35,6 +40,7 @@ public class Member {
         this.wallet = wallet;
         this.name = name;
         this.socialClass = socialClass;
+        this.inCurrentNetwork = false; 
     }
 	// Without initial wallet amount
     public Member(String name, SocialClass socialClass) {
@@ -42,6 +48,7 @@ public class Member {
 		this.wallet = 0;
 		this.name = name;
 		this.socialClass = socialClass;
+		this.inCurrentNetwork = false; 
 	}
 
     // Add service
@@ -64,7 +71,11 @@ public class Member {
 		services.remove(i); 
 	}
 	
-	public createTasks(Service service, int time, ) {
+	public void inNetwork() {
+		this.inCurrentNetwork = !inCurrentNetwork; 
+	}
+	
+	public createTasks(Service service, int time) {
 		//Service service, Member beneficiary, ArrayList<Member> participants, double duration, boolean volunteer
 		return new Task 
 	}

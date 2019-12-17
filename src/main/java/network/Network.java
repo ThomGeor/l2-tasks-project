@@ -9,13 +9,18 @@ public class Network {
 		this.network = new ArrayList<Member>();
 		this.name = name; 
 	}
-	
-	public void addMember(Member member) {
-		if(member.getInCurrentNetwork()) {
+
+	/* Add a Member without Network to this one
+	* Call Member.setNetwork
+	* */
+	/*public void addMember(Member member) {
+		if(member.getNetwork()) {
 			network.add(member);
 			member.inNetwork(); 
 		}
-	}
+	}*/
+
+	public ArrayList<Member> getNetworkList(){ return this.network; }
 	
 	public void removeMember(Member member) {
 		int indice = 0; 
@@ -25,6 +30,6 @@ public class Network {
 		}
 		
 		network.remove(indice); 
-		member.inNetwork();
+//		member.inNetwork();
 	}
 }

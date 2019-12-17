@@ -30,10 +30,10 @@ public class Service {
     }
 
     // Check if services are same (check name)
-    public boolean equals(Object other) {
+    /*public boolean equals(Object other) {
         // If same reference or same name they are equal
         return this == other || (other instanceof Service && this.name.equals(other.name));
-    }
+    }*/
 
     // Possibility to create HashSets of Services without duplicates
     public int hashCode() {

@@ -17,11 +17,6 @@ public class Admin extends Member {
         this.networkList = new ArrayList<Member>();
         this.taskList    = new ArrayList<Task>();
     }
-    
-    public Admin(String name, SocialClass socialClass, Network network){
-		super(name, socialClass); 
-		this.network = network; 
-	}
 
     // Create class network
     public void createNetwork(String name) {

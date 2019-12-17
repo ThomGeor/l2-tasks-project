@@ -2,6 +2,7 @@ package network;
 
 import exceptions.MissAmountException;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class Member {
@@ -10,10 +11,27 @@ public class Member {
     private String name;
     private SocialClass socialClass;
     private ArrayList<Service> services;
-    private Network network;
-    
-    
-    
+    private Network network; // Get the Network of which he's member
+
+	// Member constructor With initial Network
+    public Member(int wallet, String name, SocialClass socialClass, Network network) {
+        this.services = new ArrayList<Service>();
+        this.wallet = wallet;
+        this.name = name;
+        this.socialClass = socialClass;
+        this.network = network;
+    }
+
+    /* Member constructor without initial Network
+    * Has to affect to one
+    * */
+	public Member(int wallet, String name, SocialClass socialClass) {
+		this.services = new ArrayList<Service>();
+		this.wallet = wallet;
+		this.name = name;
+		this.socialClass = socialClass;
+	}
+
 	public int getWallet() {
 		return wallet;
 	}
@@ -34,21 +52,13 @@ public class Member {
 		return this.network;
 	}
 
-	// With initial wallet amount
-    public Member(int wallet, String name, SocialClass socialClass) {
-        this.services = new ArrayList<Service>();
-        this.wallet = wallet;
-        this.name = name;
-        this.socialClass = socialClass;
-        this.inCurrentNetwork = false; 
-    }
-	// Without initial wallet amount
-    public Member(String name, SocialClass socialClass) {
-		this.services = new ArrayList<Service>();
-		this.wallet = 0;
-		this.name = name;
-		this.socialClass = socialClass;
-		this.inCurrentNetwork = false; 
+	/* Allows to:
+	* - affect a Member to a Network if not in one
+	* - change the Member's
+	* Must be called by a Network (addMember)
+	* */
+	public void setNetwork(Network network) {
+		this.network = network;
 	}
 
     // Add service
@@ -70,15 +80,12 @@ public class Member {
 		
 		services.remove(i); 
 	}
-	
-	public void inNetwork() {
-		this.inCurrentNetwork = !inCurrentNetwork; 
-	}
-	
-	public createTasks(Service service, int time) {
+
+//	TODO
+	/*public createTasks(Service service, int time) {
 		//Service service, Member beneficiary, ArrayList<Member> participants, double duration, boolean volunteer
-		return new Task 
-	}
+		return new Task
+	}*/
 
 	// Add to Member's Wallet
 	// Return IllegalArgumentException if mcoins < 0

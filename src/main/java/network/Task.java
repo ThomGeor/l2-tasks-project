@@ -1,5 +1,6 @@
 package network;
 
+import exceptions.MissAmountException;
 import exceptions.NotEnoughPotentielParticipants;
 
 import java.util.ArrayList;
@@ -22,13 +23,11 @@ public class Task {
         this.duration = duration;
         this.volunteer = volunteer;
         this.finished = false;
+		// Cost of the task according to beneficiary's class, duration and number of participants, free if volunteer
+        this.cost = (volunteer) ? 0 : this.beneficiary.getSocialClass().calc((int)Math.ceil(this.duration * this.participants.size()));
     }
 
-    // Return cost of the task according to beneficiary's class, duration and number of participants
-    // If finished doesn't recalculate
-    public int getCost() {
-        return (volunteer) ? 0 : this.beneficiary.getSocialClass().calc((int)Math.ceil(this.duration * this.participants.size()));
-    }
+    public int getCost() { return this.cost; }
 
 	public Service getService() {
 		return service;
@@ -93,10 +92,23 @@ public class Task {
 		}
 	}
 
-    // Executes the task, pay the participants and debits the beneficiary
-	// Only done by admin
-    // Change status : finished = true
-    public void execute() {
+	/* Executes the task
+	* Pay the participants
+	* Debits the beneficiary
+	* this.finished = true
+	*
+	* Has normally to be executed by Admin
+	* */
+    public void execute() throws MissAmountException {
+    	// Debit the beneficiary
+		this.beneficiary.debitWallet(this.cost);
 
+    	// Pay the participants
+		for(Member participant : this.participants){
+			participant.creditWallet(this.cost/this.numberParticipants);
+		}
+
+		// Change the status
+		this.finished = true;
     }
 }

@@ -14,10 +14,16 @@ public class Main {
 	 * Check what the network value when no Network
 	 * */
 	public static void TestMember(){
+		// Try to create a Member
 		Member member1 = new Member(0, "Thomas", new SocialClassHalf());
+
+		// Add in and remove from the wallet
 		member1.creditWallet(1000);
 		System.out.println(member1.getWallet());
-		// What is the Network when unset ?
+		member1.creditWallet(1000);
+		System.out.println(member1.getWallet());
+
+		// What is the Network when unset ? null
 		System.out.println(member1.getNetwork());
 	}
 

@@ -56,9 +56,12 @@ public class Member {
 	* - affect a Member to a Network if not in one
 	* - change the Member's
 	* Must be called by a Network (addMember)
+	* TODO Must remove Member from Network if not null
+	*  TODO Careful for Admin
 	* */
 	public void setNetwork(Network network) {
-		this.network = network;
+		if(this.network == null)
+			this.network = network;
 	}
 
     // Add service

@@ -4,23 +4,22 @@ import java.util.ArrayList;
 
 /**
  * TODO
- * Separate network and admin
+ * Can create Network
+ * deleteNetwork() --> remove all Members
+ * addMember
  */
 public class Admin extends Member {
-    private ArrayList<Member> networkList;
-    private ArrayList<Task> taskList; 
-    private String nameOfNetwork;
-    private Network network;
-
+    // Admin constructor
     public Admin(int wallet, String name, SocialClass socialClass) {
         super(wallet, name, socialClass);
-        this.networkList = new ArrayList<Member>();
-        this.taskList    = new ArrayList<Task>();
     }
 
-    // Create class network
+    /* Creates his Network if he doesn't have one
+    * */
     public void createNetwork(String name) {
-        this.network = new Network(name); 
+        if(this.network == null) {
+            this.network = new Network(name);
+        }
     }
 
     // 2 methods : with or without wallet amount

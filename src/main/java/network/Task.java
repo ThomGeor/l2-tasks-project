@@ -1,5 +1,7 @@
 package network;
 
+import exceptions.NotEnoughPotentielParticipants;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -71,7 +73,12 @@ public class Task {
 
 		// If not enough Members purposing the Service in the Network
 		if(potentialParticipants.size() < this.numberParticipants){
-			throw new NotEnoughPotentielParticipants();
+			throw new NotEnoughPotentielParticipants(
+					this.numberParticipants,
+					this.numberParticipants-potentialParticipants.size(),
+					this.service,
+					""
+			);
 		}
 
 		// Choose the number of participants

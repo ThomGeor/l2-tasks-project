@@ -10,7 +10,7 @@ public class Member {
     private String name;
     private SocialClass socialClass;
     private ArrayList<Service> services;
-    private boolean inCurrentNetwork; 
+    private Network network;
     
     
     
@@ -30,8 +30,8 @@ public class Member {
 		return services;
 	}
 	
-	public boolean getInCurrentNetwork() {
-		return this.inCurrentNetwork;
+	public Network getNetwork() {
+		return this.network;
 	}
 
 	// With initial wallet amount

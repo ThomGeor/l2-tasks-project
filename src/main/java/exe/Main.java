@@ -3,8 +3,13 @@ package exe;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("TEST");
+		TestTask();
 	}
 
+	/*
+	* Try to create a Task and execute it to check the balances
+	* */
+	public static void TestTask(){
+
+	}
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Network {
 	private Set<Member> memberList;
-	private String name; 
+	private String name;
 	
 	public Network(String name) {
 		this.memberList = new HashSet<Member>();

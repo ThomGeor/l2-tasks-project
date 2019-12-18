@@ -1,32 +1,31 @@
 package network;
 
-import exceptions.AlreadyInNetwork;
-import exceptions.CantSetNetworkAdmin;
-import exceptions.MissAmountException;
+import exceptions.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Member {
     protected int wallet;
 	protected String name;
 	protected SocialClass socialClass;
-	protected ArrayList<Service> services;
+	protected Set<Service> services;
 	protected Network network; // Get the Network of which he's member
 
 	// Member constructor With initial Network
     public Member(int wallet, String name, SocialClass socialClass, Network network) {
-        this.services = new ArrayList<Service>();
+        this.services = new HashSet<Service>();
         this.wallet = wallet;
         this.name = name;
         this.socialClass = socialClass;
         this.network = network;
     }
 
-    /* Member constructor without initial Network
-    * Has to affect to one
+    /** Member constructor without initial Network
+    * Have to affect to one after
     * */
 	public Member(int wallet, String name, SocialClass socialClass) {
-		this.services = new ArrayList<Service>();
+		this.services = new HashSet<Service>();
 		this.wallet = wallet;
 		this.name = name;
 		this.socialClass = socialClass;
@@ -44,7 +43,7 @@ public class Member {
 		return socialClass;
 	}
 
-	public ArrayList<Service> getServices() {
+	public Set<Service> getServices() {
 		return services;
 	}
 	
@@ -71,24 +70,26 @@ public class Member {
 		return network;
 	}
 
-    // Add service
-	// TODO
-    public void addService(Service service) {
-		if(!this.services.contains(service)){
-			this.services.add(service);
+    /**
+	 * Add a Service that this Member can do
+	 *
+	 * @throws AlreadyHasService
+	 * */
+    public void addService(Service service) throws AlreadyHasService {
+		if(!this.services.add(service)){
+			throw new AlreadyHasService("", this, service);
 		}
     }
 
-	// Remove service
-	// TODO
-	public void removeService(Service service) {
-		int i = 0; 
-		
-		while(services.get(i) != service) {
-			i++; 
+	/**
+	 * Remove a Service that the Member can do
+	 *
+	 * @throws DontHaveService
+	 * */
+	public void removeService(Service service) throws DontHaveService {
+		if(!this.services.remove(service)){
+			throw new DontHaveService("", this, service);
 		}
-		
-		services.remove(i); 
 	}
 
 //	TODO
@@ -115,8 +116,9 @@ public class Member {
 
 	public String toString(){
     	return this.name + "(" + this.wallet + ", "
-				+ this.socialClass
-				+ ((this.network != null) ? (", " + this.network.getName()) : ", null")
+				+ this.socialClass + ", "
+				+ ((this.network != null) ? (this.network.getName()) : "null") + ", "
+				+ this.services
 		+ ")";
 	}
 }

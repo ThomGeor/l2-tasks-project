@@ -1,9 +1,6 @@
 package exe;
 
-import exceptions.AlreadyInNetwork;
-import exceptions.CantSetNetworkAdmin;
-import exceptions.MissAmountException;
-import exceptions.NotInNetwork;
+import exceptions.*;
 import network.*;
 
 public class Main {
@@ -106,7 +103,7 @@ public class Main {
 
 
 	//	Add a Member by Network
-		Member member1 = new Member(0, "Thomas", new SocialClassHalf());
+		/*Member member1 = new Member(0, "Thomas", new SocialClassHalf());
 		try {
 			admin.getNetwork().addMember(member1);
 		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
@@ -121,7 +118,7 @@ public class Main {
 			notInNetwork.printStackTrace();
 		}
 		System.out.println(member1.getNetwork());
-		System.out.println(admin.getNetwork()); // Test Network.toString()
+		System.out.println(admin.getNetwork()); // Test Network.toString()*/
 
 
 		//	Create a Member by Admin
@@ -130,6 +127,8 @@ public class Main {
 		} catch (NotInNetwork alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
 		}*/
+
+	//	Destruct a Network
 	}
 
 	/* Tests around Services and Member
@@ -138,15 +137,15 @@ public class Main {
 	* */
 	public static void TestServices(){
 	//	2 Services are equal
-		Service serv1 = new Service("Cooking", 10);
+		/*Service serv1 = new Service("Cooking", 10);
 		Service serv2 = new Service("Cooking", 10);
 		Service serv3 = new Service("Cooking", 5);
 		System.out.println(serv1.equals(serv2)); // true
-		System.out.println(serv1.equals(serv3)); // true
+		System.out.println(serv1.equals(serv3)); // true*/
 
 
 	//	Add and Remove Services of Member
-		/*Service cooking = new Service("Cooking", 10);
+		Service cooking = new Service("Cooking", 10);
 		Service washing = new Service("Washing Clothes", 15);
 		Service mowing = new Service("Mowing the Lawn", 5);
 		Admin admin = new Admin(100, "Thomas", new SocialClassHalf());
@@ -159,10 +158,13 @@ public class Main {
 			Member member = admin.createMember(100, "Thomas", new SocialClassHalf());
 			member.addService(cooking);
 			member.addService(washing);
-			member.addService(mowing);
-		} catch (NotInNetwork notInNetwork) {
+			System.out.println(member);
+			member.removeService(washing);
+			System.out.println(member);
+			member.removeService(mowing);
+		} catch (NotInNetwork | AlreadyHasService | DontHaveService notInNetwork) {
 			notInNetwork.printStackTrace();
-		}*/
+		}
 	}
 
 	/*

@@ -2,18 +2,17 @@ package exe;
 
 import exceptions.AlreadyInNetwork;
 import exceptions.CantSetNetworkAdmin;
-import exceptions.NotInNetwork;
 import network.*;
 
 public class Main {
 
 	public static void main(String[] args) {
+		/*TestMember();*/
 		TestNetwork();
 	}
 
 	/*
-	 * Try to create a Member
-	 * Check what the network value when no Network
+	 * Tests around Member class
 	 * */
 	public static void TestMember(){
 		// Try to create a Member
@@ -30,8 +29,7 @@ public class Main {
 	}
 
 	/*
-	 * Try to create a Network from an Admin
-	 * Add Members, create them
+	 * All tests around Network and Admin linked with Network
 	 * */
 	public static void TestNetwork(){
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
@@ -60,26 +58,33 @@ public class Main {
 
 
 	//	Try to add an Admin to a Network
-		try {
+		/*try {
 			admin.setNetwork(admin.getNetwork());
 		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
-		}
-		try {
+		}*/
+		/*try {
 			admin.getNetwork().addMember(admin);
 		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
-		}
+		}*/
 
 
 	//	Create a Member directly in Network
-		System.out.println(
+		/*System.out.println(
 				admin.getNetwork()
 						.createMember(100, "Member", new SocialClassZero()).getNetwork().getName()
-		); // Check the name of the created Member's Network
+		); // Check the name of the created Member's Network*/
 
 
 	//	Add a Member by Network
+		Member member1 = new Member(0, "Thomas", new SocialClassHalf());
+		try {
+			admin.getNetwork().addMember(member1);
+		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		System.out.println(member1.getNetwork().getName());
 
 
 	//	Create a Member by Admin
@@ -88,11 +93,6 @@ public class Main {
 		} catch (NotInNetwork alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
 		}*/
-
-
-	//	Add a Member by Admin
-
-
 	}
 
 	/*

@@ -1,16 +1,11 @@
 package network;
 
 import exceptions.AlreadyInNetwork;
-import exceptions.CantSetNetworkAdmin;
 import exceptions.NotInNetwork;
-
-import java.util.ArrayList;
 
 /**
  * TODO
- * Can create Network
  * deleteNetwork() --> remove all Members
- * addMember
  */
 public class Admin extends Member {
     // Admin constructor

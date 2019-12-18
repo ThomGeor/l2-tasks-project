@@ -2,17 +2,22 @@ package exe;
 
 import exceptions.AlreadyInNetwork;
 import exceptions.CantSetNetworkAdmin;
+import exceptions.MissAmountException;
 import network.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-		/*TestMember();*/
-		TestNetwork();
+		// TestMember();
+		// TestNetwork();
+		TestServices();
+		// TestTask();
 	}
 
 	/*
-	 * Tests around Member class
+	 * Create Member
+	 * Credit and Debit wallet
+	 * Debit more than the balance
 	 * */
 	public static void TestMember(){
 		// Try to create a Member
@@ -21,15 +26,33 @@ public class Main {
 		// Add in and remove from the wallet
 		member1.creditWallet(1000);
 		System.out.println(member1.getWallet());
-		member1.creditWallet(1000);
+		try {
+			member1.debitWallet(1000);
+		} catch (MissAmountException e) {
+			e.printStackTrace();
+		}
+		System.out.println(member1.getWallet());
+
+
+		// Debit more than what he has
+		try {
+			member1.debitWallet(1000);
+		} catch (MissAmountException e) {
+			e.printStackTrace();
+		}
 		System.out.println(member1.getWallet());
 
 		// What is the Network when unset ? null
-		System.out.println(member1.getNetwork());
+		// System.out.println(member1.getNetwork());
 	}
 
-	/*
-	 * All tests around Network and Admin linked with Network
+	/* All tests around Network and Admin linked with Network
+	 *
+	 * Create Network
+	 * Member already in Networks
+	 * Add Admin to Network
+	 * Create Member from Admin and Network
+	 * Add Member to Network
 	 * */
 	public static void TestNetwork(){
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
@@ -95,10 +118,15 @@ public class Main {
 		}*/
 	}
 
+	public static void TestServices(){
+
+	}
+
 	/*
 	* Try to create a Task and execute it to check the balances
 	* */
 	public static void TestTask(){
-
+	//	Create the Admin, the Network and create some Members
+		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
 	}
 }

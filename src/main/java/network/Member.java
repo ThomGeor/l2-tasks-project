@@ -108,6 +108,6 @@ public class Member {
 	public void debitWallet(int mcoins) throws IllegalArgumentException, MissAmountException {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
 		else if(mcoins > this.wallet) throw new MissAmountException("ERR: not enough coins", mcoins-this.wallet, this.wallet);
-		this.wallet += mcoins;
+		this.wallet -= mcoins;
 	}
 }

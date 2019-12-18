@@ -1,17 +1,17 @@
 package network;
 
+import exceptions.AlreadyInNetwork;
 import exceptions.MissAmountException;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class Member {
-	// list of networks
-    private int wallet;
-    private String name;
-    private SocialClass socialClass;
-    private ArrayList<Service> services;
-    private Network network; // Get the Network of which he's member
+    protected int wallet;
+	protected String name;
+	protected SocialClass socialClass;
+	protected ArrayList<Service> services;
+	protected Network network; // Get the Network of which he's member
 
 	// Member constructor With initial Network
     public Member(int wallet, String name, SocialClass socialClass, Network network) {
@@ -52,16 +52,21 @@ public class Member {
 		return this.network;
 	}
 
-	/* Allows to:
+	/**
+	 *  Allows to:
 	* - affect a Member to a Network if not in one
 	* - change the Member's
 	* Must be called by a Network (addMember)
 	* TODO Must remove Member from Network if not null
 	*  TODO Careful for Admin
+	 *
+	 * @return Network
 	* */
-	public void setNetwork(Network network) {
+	public Network setNetwork(Network network) throws AlreadyInNetwork {
 		if(this.network == null)
 			this.network = network;
+		else throw new AlreadyInNetwork("Remove the Member from the Network first, if Admin, delete it",this, network);
+		return network;
 	}
 
     // Add service

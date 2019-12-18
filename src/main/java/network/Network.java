@@ -10,6 +10,10 @@ public class Network {
 		this.name = name; 
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	/* Add a Member without Network to this one
 	* Call Member.setNetwork
 	* */

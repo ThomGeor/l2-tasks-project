@@ -1,12 +1,15 @@
 package exe;
 
+import exceptions.AlreadyInNetwork;
+import network.Admin;
 import network.Member;
 import network.SocialClassHalf;
+import network.SocialClassNormal;
 
 public class Main {
 
 	public static void main(String[] args) {
-		TestMember();
+		TestNetwork();
 	}
 
 	/*
@@ -32,7 +35,35 @@ public class Main {
 	 * Add Members, create them
 	 * */
 	public static void TestNetwork(){
+		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
 
+		//	Create a Network
+		try {
+			admin.createNetwork("First Network");
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+
+		// Test if already in Network
+		/*try {
+			admin.createNetwork("First Network");
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			System.err.println(alreadyInNetwork.getNetwork().getName());
+			System.err.println(alreadyInNetwork.getMessage());
+		}
+		try {
+			admin.setNetwork(admin.getNetwork());
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			System.err.println(alreadyInNetwork.getNetwork().getName());
+			System.err.println(alreadyInNetwork.getMessage());
+		}*/
+
+		//	Create a Member directly in Network
+		admin.getNetwork();
+
+		//	Add a Member by Network
+		//	Create a Member by Admin
+		//	Add a Member by Admin
 	}
 
 	/*

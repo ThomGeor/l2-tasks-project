@@ -8,8 +8,8 @@ public class Main {
 	public static void main(String[] args) {
 		// TestMember();
 		// TestNetwork();
-		TestServices();
-		// TestTask();
+		// TestServices();
+		TestTask();
 	}
 
 	/*
@@ -171,7 +171,33 @@ public class Main {
 	* Try to create a Task and execute it to check the balances
 	* */
 	public static void TestTask(){
-	//	Create the Admin, the Network and create some Members
+	//	Create the Admin, the Network and create some Members with the Service and not
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
+		Network network = null;
+		try {
+			network = admin.createNetwork("The Network");
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		Member member1 = network.createMember(100, "Malo", new SocialClassZero());
+		Member member2 = network.createMember(0, "Thomas", new SocialClassHalf());
+		Member member3 = network.createMember(1000, "Paul", new SocialClassNormal());
+
+		Service cooking = new Service("Cooking", 10);
+		Service washing = new Service("Washing Clothes", 15);
+		Service mowing = new Service("Mowing the Lawn", 5);
+
+		try {
+			member2.addService(cooking);
+			member2.addService(washing);
+			member2.addService(mowing);
+
+			member3.addService(washing);
+		} catch (AlreadyHasService alreadyHasService) {
+			alreadyHasService.printStackTrace();
+		}
+
+		System.out.println(network);
+
 	}
 }

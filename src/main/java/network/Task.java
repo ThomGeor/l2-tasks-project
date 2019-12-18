@@ -2,19 +2,23 @@ package network;
 
 import exceptions.MissAmountException;
 import exceptions.NotEnoughPotentielParticipants;
+import exceptions.TaskAlreadyExecuted;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Task {
     private Service service;
     private Member beneficiary;
-	private ArrayList<Member> participants;
+    private Network network; // Save the Network because the beneficiary could change after executed
+	private Set<Member> participants;
 	private int numberParticipants;
     private double duration;
-    private int cost; // Save the cost if the task is executed
+    private int cost; // Save the cost if the task is executed, cost is given when asked
     private boolean volunteer;
-    private boolean finished; // The admin can finish it when participants are found
+    private boolean executed; // The admin can finish it when participants are found
 
     public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) {
         this.service = service;
@@ -22,7 +26,8 @@ public class Task {
         this.numberParticipants = numberParticipants;
         this.duration = duration;
         this.volunteer = volunteer;
-        this.finished = false;
+        this.executed = false;
+        this.participants = new HashSet<Member>();
 		// Cost of the task according to beneficiary's class, duration and number of participants, free if volunteer
         this.cost = (volunteer) ? 0 : this.beneficiary.getSocialClass().calc((int)Math.ceil(this.duration * this.participants.size()));
     }
@@ -41,7 +46,7 @@ public class Task {
 		return numberParticipants;
 	}
 
-	public ArrayList<Member> getParticipants() {
+	public Set<Member> getParticipants() {
 		return participants;
 	}
 
@@ -53,14 +58,22 @@ public class Task {
 		return volunteer;
 	}
 
-	public boolean isFinished() {
-		return finished;
+	public boolean isExecuted() {
+		return executed;
 	}
 
 	/**
 	 * Find all participants in the Beneficiary's Network
+	 * Allows to regenerate the participant list
+	 *
+	 * @throws NotEnoughPotentielParticipants
+	 * @throws TaskAlreadyExecuted
 	 * */
-	public void findParticipants() throws NotEnoughPotentielParticipants{
+	public void findParticipants() throws NotEnoughPotentielParticipants, TaskAlreadyExecuted {
+		if(executed){
+			throw new TaskAlreadyExecuted("Can't find new participants if executed", this);
+		}
+
 		// Construct the list of Members that can do this Service
 		ArrayList<Member> potentialParticipants = new ArrayList<Member>();
 		for(Member member : this.beneficiary.getNetwork().getNetworkList()){
@@ -92,14 +105,22 @@ public class Task {
 		}
 	}
 
-	/* Executes the task
+	/**
+	 *  Executes the task
 	* Pay the participants
 	* Debits the beneficiary
 	* this.finished = true
 	*
 	* Has normally to be executed by Admin
+	 *
+	 * @throws MissAmountException
+	 * @throws TaskAlreadyExecuted
 	* */
-    public void execute() throws MissAmountException {
+    public void execute() throws MissAmountException, TaskAlreadyExecuted {
+    	if(this.executed){
+			throw new TaskAlreadyExecuted("Task already executed", this);
+		}
+
     	// Debit the beneficiary
 		this.beneficiary.debitWallet(this.cost);
 
@@ -109,6 +130,6 @@ public class Task {
 		}
 
 		// Change the status
-		this.finished = true;
+		this.executed = true;
     }
 }

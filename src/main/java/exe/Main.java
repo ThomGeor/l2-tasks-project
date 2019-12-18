@@ -36,7 +36,7 @@ public class Main {
 	public static void TestNetwork(){
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
 
-		//	Create a Network
+	//	Create a Network
 		try {
 			admin.createNetwork("First Network");
 		} catch (AlreadyInNetwork alreadyInNetwork) {
@@ -44,7 +44,7 @@ public class Main {
 		}
 
 
-		// Test if already in Network
+	// Test if already in Network
 		/*try {
 			admin.createNetwork("First Network");
 		} catch (AlreadyInNetwork alreadyInNetwork) {
@@ -59,17 +59,30 @@ public class Main {
 		}*/
 
 
-		//	Create a Member directly in Network
+	//	Try to add an Admin to a Network
+		try {
+			admin.setNetwork(admin.getNetwork());
+		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		try {
+			admin.getNetwork().addMember(admin);
+		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+
+
+	//	Create a Member directly in Network
 		System.out.println(
 				admin.getNetwork()
 						.createMember(100, "Member", new SocialClassZero()).getNetwork().getName()
 		); // Check the name of the created Member's Network
 
 
-		//	Add a Member by Network
+	//	Add a Member by Network
 
 
-		//	Create a Member by Admin
+	//	Create a Member by Admin
 		/*try {
 			System.out.println(admin.createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
 		} catch (NotInNetwork alreadyInNetwork) {
@@ -77,7 +90,9 @@ public class Main {
 		}*/
 
 
-		//	Add a Member by Admin
+	//	Add a Member by Admin
+
+
 	}
 
 	/*

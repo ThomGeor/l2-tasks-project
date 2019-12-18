@@ -9,9 +9,9 @@ import network.*;
 public class Main {
 
 	public static void main(String[] args) {
-		TestMember();
+		// TestMember();
 		// TestNetwork();
-		// TestServices();
+		TestServices();
 		// TestTask();
 	}
 
@@ -134,9 +134,35 @@ public class Main {
 
 	/* Tests around Services and Member
 	* Add and Remove a Service to a Member
+	* Check if 2 Services are same
 	* */
 	public static void TestServices(){
+	//	2 Services are equal
+		Service serv1 = new Service("Cooking", 10);
+		Service serv2 = new Service("Cooking", 10);
+		Service serv3 = new Service("Cooking", 5);
+		System.out.println(serv1.equals(serv2)); // true
+		System.out.println(serv1.equals(serv3)); // true
 
+
+	//	Add and Remove Services of Member
+		/*Service cooking = new Service("Cooking", 10);
+		Service washing = new Service("Washing Clothes", 15);
+		Service mowing = new Service("Mowing the Lawn", 5);
+		Admin admin = new Admin(100, "Thomas", new SocialClassHalf());
+		try {
+			admin.createNetwork("THE");
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		try {
+			Member member = admin.createMember(100, "Thomas", new SocialClassHalf());
+			member.addService(cooking);
+			member.addService(washing);
+			member.addService(mowing);
+		} catch (NotInNetwork notInNetwork) {
+			notInNetwork.printStackTrace();
+		}*/
 	}
 
 	/*

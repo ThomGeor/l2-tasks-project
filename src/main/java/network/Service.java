@@ -29,13 +29,21 @@ public class Service {
         this.costPerHour = costPerHour;
     }
 
-    // Check if services are same (check name)
-    /*public boolean equals(Object other) {
+    /**
+     * Check if services are same (check name)
+     *
+     * @return boolean
+     * */
+    public boolean equals(Object other) {
         // If same reference or same name they are equal
-        return this == other || (other instanceof Service && this.name.equals(other.name));
-    }*/
+        return this == other || (other instanceof Service && this.name.equals(((Service) other).getName()));
+    }
 
-    // Possibility to create HashSets of Services without duplicates
+    /**
+     * Possibility to create HashSets of Services without duplicates
+     *
+     * @return int
+     * */
     public int hashCode() {
         return this.name.hashCode();
     }

@@ -92,26 +92,54 @@ public class Member {
 		}
 	}
 
-//	TODO
-	/*public createTasks(Service service, int time) {
-		//Service service, Member beneficiary, ArrayList<Member> participants, double duration, boolean volunteer
-		return new Task
-	}*/
+	/**
+	 * Create and request a Task in the Member's actual Network
+	 *
+	 * @return Task
+	 *
+	 * @throws NotInNetwork
+	 * @throws MissAmountException
+	 * */
+	public Task createTasks(Service service, int numberParticipants, double duration, boolean volunteer) throws NotInNetwork, MissAmountException, TaskAlreadyExecuted, NotEnoughPotentielParticipants {
+		if(this.network != null){
+			// Check if the beneficiary has enough money
+			int cost = this.getSocialClass().calc((int)Math.ceil(service.getCost() * duration * numberParticipants));
+			if(volunteer || this.wallet >= cost){
+				return new Task(service, this, numberParticipants, duration, volunteer);
+			}else{
+				throw new MissAmountException("Not enough coins to ask for the task", cost, this.wallet);
+			}
+		}else{
+			throw new NotInNetwork("To create a Task the Member needs to be in a Network", this);
+		}
+	}
 
-	// Add to Member's Wallet
-	// Return IllegalArgumentException if mcoins < 0
-    public void creditWallet(int mcoins) throws IllegalArgumentException {
+	/**
+	 * Add to Member's Wallet
+	 *
+	 * @throws IllegalArgumentException If mcoins < 0
+	 *
+	 * @return int New wallet amount
+	 * */
+    public int creditWallet(int mcoins) throws IllegalArgumentException {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
     	this.wallet += mcoins;
+		return this.wallet;
     }
 
-	// Remove from Member's Wallet
-	// Return IllegalArgumentException if mcoins < 0
-	// Return MissAmountException if mcoins > wallet
-	public void debitWallet(int mcoins) throws IllegalArgumentException, MissAmountException {
+	/**
+	 * Remove from Member's Wallet
+	 *
+	 * @throws IllegalArgumentException If mcoins < 0
+	 * @throws MissAmountException If mcoins > wallet
+	 *
+	 * @return int New wallet amount
+	 * */
+	public int debitWallet(int mcoins) throws IllegalArgumentException, MissAmountException {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
 		else if(mcoins > this.wallet) throw new MissAmountException("ERR: not enough coins", mcoins-this.wallet, this.wallet);
 		this.wallet -= mcoins;
+		return this.wallet;
 	}
 
 	public String toString(){

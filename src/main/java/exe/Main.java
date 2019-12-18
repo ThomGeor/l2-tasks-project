@@ -179,8 +179,8 @@ public class Main {
 		} catch (AlreadyInNetwork alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
 		}
-		Member member1 = network.createMember(100, "Malo", new SocialClassZero());
-		Member member2 = network.createMember(0, "Thomas", new SocialClassHalf());
+		Member member1 = network.createMember(100, "Malo", new SocialClassHalf());
+		Member member2 = network.createMember(0, "Thomas", new SocialClassZero());
 		Member member3 = network.createMember(1000, "Paul", new SocialClassNormal());
 
 		Service cooking = new Service("Cooking", 10);
@@ -199,5 +199,26 @@ public class Main {
 
 		System.out.println(network);
 
+		// Test with only 1 potential participant
+		System.out.println(network.getNetworkList() + "\n");
+		Task task = null;
+		try {
+			task = member1.createTasks(cooking, 1, 4.5, false);
+		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		System.out.println(task.getParticipants());
+		System.out.println(task.getCost()+ "\n");
+		System.out.println(network.getNetworkList());
+		try {
+			task.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted e) {
+			e.printStackTrace();
+		}
+		System.out.println(network.getNetworkList());
+
+		// Test with multiple potential participant (1 needed and 2 needed)
+
+		// Test when beneficiary doesn't have enough when creates task and when executes (debits between)
 	}
 }

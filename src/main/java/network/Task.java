@@ -12,7 +12,6 @@ import java.util.Set;
 public class Task {
     private Service service;
     private Member beneficiary;
-    private Network network; // Save the Network because the beneficiary could change after executed
 	private Set<Member> participants;
 	private int numberParticipants;
     private double duration;
@@ -20,7 +19,7 @@ public class Task {
     private boolean volunteer;
     private boolean executed; // The admin can finish it when participants are found
 
-    public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) {
+    public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) throws TaskAlreadyExecuted, NotEnoughPotentielParticipants {
         this.service = service;
         this.beneficiary = beneficiary;
         this.numberParticipants = numberParticipants;
@@ -28,8 +27,9 @@ public class Task {
         this.volunteer = volunteer;
         this.executed = false;
         this.participants = new HashSet<Member>();
+		this.findParticipants();
 		// Cost of the task according to beneficiary's class, duration and number of participants, free if volunteer
-        this.cost = (volunteer) ? 0 : this.beneficiary.getSocialClass().calc((int)Math.ceil(this.duration * this.participants.size()));
+        this.cost = (volunteer) ? 0 : this.beneficiary.getSocialClass().calc((int)Math.ceil(service.getCost() * this.duration * numberParticipants));
     }
 
     public int getCost() { return this.cost; }
@@ -113,7 +113,7 @@ public class Task {
 	*
 	* Has normally to be executed by Admin
 	 *
-	 * @throws MissAmountException
+	 * @throws MissAmountException If the beneficiary doesn't have enough coins anymore
 	 * @throws TaskAlreadyExecuted
 	* */
     public void execute() throws MissAmountException, TaskAlreadyExecuted {
@@ -122,14 +122,15 @@ public class Task {
 		}
 
     	// Debit the beneficiary
+		// Throws MissAmountException if doesn't have enough
 		this.beneficiary.debitWallet(this.cost);
 
-    	// Pay the participants
+		// Pay the participants
 		for(Member participant : this.participants){
 			participant.creditWallet(this.cost/this.numberParticipants);
 		}
 
 		// Change the status
 		this.executed = true;
-    }
+	}
 }

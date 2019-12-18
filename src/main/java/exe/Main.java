@@ -1,10 +1,7 @@
 package exe;
 
 import exceptions.AlreadyInNetwork;
-import network.Admin;
-import network.Member;
-import network.SocialClassHalf;
-import network.SocialClassNormal;
+import network.*;
 
 public class Main {
 
@@ -59,7 +56,7 @@ public class Main {
 		}*/
 
 		//	Create a Member directly in Network
-		admin.getNetwork();
+		System.out.println(admin.getNetwork().createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
 
 		//	Add a Member by Network
 		//	Create a Member by Admin

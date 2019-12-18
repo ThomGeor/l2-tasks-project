@@ -1,12 +1,15 @@
 package network;
-import java.util.ArrayList;
+import exceptions.AlreadyInNetwork;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Network {
-	private ArrayList<Member> network;
+	private Set<Member> network;
 	private String name; 
 	
 	public Network(String name) {
-		this.network = new ArrayList<Member>();
+		this.network = new HashSet<Member>();
 		this.name = name; 
 	}
 
@@ -14,26 +17,47 @@ public class Network {
 		return name;
 	}
 
-	/* Add a Member without Network to this one
-	* Call Member.setNetwork
-	* */
-	/*public void addMember(Member member) {
-		if(member.getNetwork()) {
-			network.add(member);
-			member.inNetwork(); 
-		}
-	}*/
+	public Set<Member> getNetworkList(){ return this.network; }
 
-	public ArrayList<Member> getNetworkList(){ return this.network; }
-	
-	public void removeMember(Member member) {
-		int indice = 0; 
-		
-		while(!(member.getName().equals(member.getName()))){
-			indice ++; 
+	/**
+	 *  Add a Member without Network to this one
+	 *  Set Member.network to this Network
+	 *  */
+	public void addMember(Member member) throws AlreadyInNetwork {
+		if(member.getNetwork() == null) {
+			network.add(member);
+			member.setNetwork(this);
+		}else{
+			throw new AlreadyInNetwork("", member, this);
+		}
+	}
+
+	/**
+	 * Create a Member directly in the Network
+	 *
+	 * @return Member
+	 * */
+	public Member createMember(int balance, String name, SocialClass socialClass){
+		Member newMember = new Member(balance, name, socialClass);
+
+		try {
+			this.addMember(newMember);
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
 		}
 		
-		network.remove(indice); 
-//		member.inNetwork();
+		return newMember;
 	}
+
+	// TODO
+	/*public void removeMember(Member member) {
+		int indice = 0;
+
+		while(!(member.getName().equals(member.getName()))){
+			indice ++;
+		}
+
+		network.remove(indice);
+//		member.inNetwork();
+	}*/
 }

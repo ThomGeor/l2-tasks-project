@@ -64,6 +64,8 @@ public class Member {
 	* */
 	public Network setNetwork(Network network) throws AlreadyInNetwork, CantSetNetworkAdmin {
 		if (this instanceof Admin) throw new CantSetNetworkAdmin("Cannot set a Network to an Admin, can only createNetwork", (Admin) this);
+		// Remove Member's Network
+		else if (network == null) this.network = null;
 		else if(this.network == null) this.network = network;
 		else throw new AlreadyInNetwork("First remove the Member from the Network first, or if Admin, delete it",this, this.network);
 		return network;
@@ -109,5 +111,12 @@ public class Member {
 		if(mcoins < 0) throw new IllegalArgumentException("ERR: mcoins must be >= 0");
 		else if(mcoins > this.wallet) throw new MissAmountException("ERR: not enough coins", mcoins-this.wallet, this.wallet);
 		this.wallet -= mcoins;
+	}
+
+	public String toString(){
+    	return this.name + "(" + this.wallet + ", "
+				+ this.socialClass
+				+ ((this.network != null) ? (", " + this.network.getName()) : ", null")
+		+ ")";
 	}
 }

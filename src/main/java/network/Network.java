@@ -1,16 +1,17 @@
 package network;
 import exceptions.AlreadyInNetwork;
 import exceptions.CantSetNetworkAdmin;
+import exceptions.NotInNetwork;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Network {
-	private Set<Member> network;
+	private Set<Member> memberList;
 	private String name; 
 	
 	public Network(String name) {
-		this.network = new HashSet<Member>();
+		this.memberList = new HashSet<Member>();
 		this.name = name;
 	}
 
@@ -18,7 +19,11 @@ public class Network {
 		return name;
 	}
 
-	public Set<Member> getNetworkList(){ return this.network; }
+	public Set<Member> getNetworkList(){ return this.memberList; }
+
+	public String toString(){
+		return this.name + this.memberList;
+	}
 
 	/**
 	 *  Add a Member without Network to this one
@@ -28,7 +33,7 @@ public class Network {
 	 * @throws AlreadyInNetwork
 	 *  */
 	public void addMember(Member member) throws AlreadyInNetwork, CantSetNetworkAdmin {
-		if(member.getNetwork() == null && network.add(member)) {
+		if(member.getNetwork() == null && memberList.add(member)) {
 			member.setNetwork(this);
 		}else{
 			throw new AlreadyInNetwork("Remove Member from his Network first", member, this);
@@ -54,15 +59,20 @@ public class Network {
 		return newMember;
 	}
 
-	// TODO
-	/*public void removeMember(Member member) {
-		int indice = 0;
-
-		while(!(member.getName().equals(member.getName()))){
-			indice ++;
+	/**
+	 * Remove a Member from the Network, also remove Member's Network
+	 *
+	 * @throws NotInNetwork
+	 * */
+	public void removeMember(Member member) throws NotInNetwork {
+		if(this.memberList.remove(member)){
+			try {
+				member.setNetwork(null);
+			} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+				alreadyInNetwork.printStackTrace();
+			}
+		}else{
+			throw new NotInNetwork("Member isn't in the Network", member);
 		}
-
-		network.remove(indice);
-//		member.inNetwork();
-	}*/
+	}
 }

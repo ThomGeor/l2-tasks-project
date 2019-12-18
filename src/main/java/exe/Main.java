@@ -3,14 +3,15 @@ package exe;
 import exceptions.AlreadyInNetwork;
 import exceptions.CantSetNetworkAdmin;
 import exceptions.MissAmountException;
+import exceptions.NotInNetwork;
 import network.*;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TestMember();
+		TestMember();
 		// TestNetwork();
-		TestServices();
+		// TestServices();
 		// TestTask();
 	}
 
@@ -34,13 +35,17 @@ public class Main {
 		System.out.println(member1.getWallet());
 
 
+		// Member.toString()
+		System.out.println(member1);
+
+
 		// Debit more than what he has
-		try {
+		/*try {
 			member1.debitWallet(1000);
 		} catch (MissAmountException e) {
 			e.printStackTrace();
 		}
-		System.out.println(member1.getWallet());
+		System.out.println(member1.getWallet());*/
 
 		// What is the Network when unset ? null
 		// System.out.println(member1.getNetwork());
@@ -52,7 +57,7 @@ public class Main {
 	 * Member already in Networks
 	 * Add Admin to Network
 	 * Create Member from Admin and Network
-	 * Add Member to Network
+	 * Add and Remove Member from Network
 	 * */
 	public static void TestNetwork(){
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
@@ -109,8 +114,17 @@ public class Main {
 		}
 		System.out.println(member1.getNetwork().getName());
 
+	//	Remove from Network
+		try {
+			admin.getNetwork().removeMember(member1);
+		} catch (NotInNetwork notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		System.out.println(member1.getNetwork());
+		System.out.println(admin.getNetwork()); // Test Network.toString()
 
-	//	Create a Member by Admin
+
+		//	Create a Member by Admin
 		/*try {
 			System.out.println(admin.createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
 		} catch (NotInNetwork alreadyInNetwork) {
@@ -118,6 +132,9 @@ public class Main {
 		}*/
 	}
 
+	/* Tests around Services and Member
+	* Add and Remove a Service to a Member
+	* */
 	public static void TestServices(){
 
 	}

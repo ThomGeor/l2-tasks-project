@@ -1,8 +1,14 @@
 package network;
 
 public interface SocialClass {
-	
-	// fonction implementer dans les socialClass Zero, Half, Normal
-	public int calc(int price);
+
+	/**
+	 * Allows to get the amount that the Member will have to pay
+	 *
+	 * @return int
+	 * */
+	int calc(int price);
+
+	String toString();
 	
 }

@@ -1,6 +1,7 @@
 package network;
 
 import exceptions.AlreadyInNetwork;
+import exceptions.CantSetNetworkAdmin;
 import exceptions.MissAmountException;
 
 import java.lang.reflect.Method;
@@ -62,10 +63,10 @@ public class Member {
 	 *
 	 * @return Network
 	* */
-	public Network setNetwork(Network network) throws AlreadyInNetwork {
-		if(this.network == null)
-			this.network = network;
-		else throw new AlreadyInNetwork("Remove the Member from the Network first, if Admin, delete it",this, network);
+	public Network setNetwork(Network network) throws AlreadyInNetwork, CantSetNetworkAdmin {
+		if (this instanceof Admin) throw new CantSetNetworkAdmin("Cannot set a Network to an Admin, can only createNetwork", (Admin) this);
+		else if(this.network == null) this.network = network;
+		else throw new AlreadyInNetwork("First remove the Member from the Network first, or if Admin, delete it",this, network);
 		return network;
 	}
 

@@ -1,6 +1,7 @@
 package exe;
 
 import exceptions.AlreadyInNetwork;
+import exceptions.NotInNetwork;
 import network.*;
 
 public class Main {
@@ -59,7 +60,14 @@ public class Main {
 		System.out.println(admin.getNetwork().createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
 
 		//	Add a Member by Network
+
 		//	Create a Member by Admin
+		try {
+			System.out.println(admin.createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
+		} catch (NotInNetwork notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+
 		//	Add a Member by Admin
 	}
 

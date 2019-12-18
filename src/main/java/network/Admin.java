@@ -1,6 +1,7 @@
 package network;
 
 import exceptions.AlreadyInNetwork;
+import exceptions.NotInNetwork;
 
 import java.util.ArrayList;
 
@@ -31,9 +32,16 @@ public class Admin extends Member {
         return this.network;
     }
 
-    // 2 methods : with or without wallet amount
-    /*public void createMember(String name, SocialClass socialClass, int wallet) {
-    	Member member = new Member(wallet, name, socialClass); 
-        networkList.add(networkList.size(), member);
-    }*/
+    /**
+     * Create a Member and add it directly to the Admin's Network
+     *
+     * @return Member
+     * */
+    public Member createMember(int balance, String name, SocialClass socialClass) throws NotInNetwork {
+        if(this.network != null){
+    	    return this.network.createMember(wallet, name, socialClass);
+        }else{
+            throw new NotInNetwork("Create a Network with this Admin before creating Members", this);
+        }
+    }
 }

@@ -45,7 +45,7 @@ public class Network {
 		} catch (AlreadyInNetwork alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
 		}
-		
+
 		return newMember;
 	}
 

@@ -1,6 +1,7 @@
 package network;
 
 import exceptions.AlreadyInNetwork;
+import exceptions.CantSetNetworkAdmin;
 import exceptions.NotInNetwork;
 
 import java.util.ArrayList;

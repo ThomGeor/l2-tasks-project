@@ -1,6 +1,7 @@
 package exe;
 
 import exceptions.AlreadyInNetwork;
+import exceptions.CantSetNetworkAdmin;
 import exceptions.NotInNetwork;
 import network.*;
 
@@ -42,6 +43,7 @@ public class Main {
 			alreadyInNetwork.printStackTrace();
 		}
 
+
 		// Test if already in Network
 		/*try {
 			admin.createNetwork("First Network");
@@ -56,17 +58,24 @@ public class Main {
 			System.err.println(alreadyInNetwork.getMessage());
 		}*/
 
+
 		//	Create a Member directly in Network
-		System.out.println(admin.getNetwork().createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
+		System.out.println(
+				admin.getNetwork()
+						.createMember(100, "Member", new SocialClassZero()).getNetwork().getName()
+		); // Check the name of the created Member's Network
+
 
 		//	Add a Member by Network
 
+
 		//	Create a Member by Admin
-		try {
+		/*try {
 			System.out.println(admin.createMember(100, "Member", new SocialClassZero()).getNetwork().getName());
-		} catch (NotInNetwork notInNetwork) {
-			notInNetwork.printStackTrace();
-		}
+		} catch (NotInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}*/
+
 
 		//	Add a Member by Admin
 	}

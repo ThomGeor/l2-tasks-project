@@ -9,10 +9,12 @@ import java.util.Set;
 public class Network {
 	private Set<Member> memberList;
 	private String name;
+	private Admin admin;
 	
-	public Network(String name) {
+	public Network(String name, Admin admin) {
 		this.memberList = new HashSet<Member>();
 		this.name = name;
+		this.admin = admin;
 	}
 
 	public String getName() {
@@ -74,5 +76,17 @@ public class Network {
 		}else{
 			throw new NotInNetwork("Member isn't in the Network", member);
 		}
+	}
+
+	/**
+	 * Delete the Network by
+	 * - set all Member.network to null
+	 * - removing all Members from memberList
+	 * - set Admin.network to null
+	 *
+	 * To really delete the Network you should unassign all variables of the Network and of the Members that are in the Network
+	 * */
+	public void delete(){
+
 	}
 }

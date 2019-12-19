@@ -18,7 +18,7 @@ public class Admin extends Member {
      *  */
     public Network createNetwork(String name) throws AlreadyInNetwork {
         if(this.network == null) {
-            this.network = new Network(name);
+            this.network = new Network(name, this);
         }else{
             throw new AlreadyInNetwork("Delete the Network first then recreate it", this, this.network);
         }

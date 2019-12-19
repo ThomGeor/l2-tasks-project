@@ -2,6 +2,9 @@ package exceptions;
 
 import network.Task;
 
+/**
+ * When want to edit a Task bu it has already been executed
+ * */
 public class TaskAlreadyExecuted extends Exception {
     private Task task;
 

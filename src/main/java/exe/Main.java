@@ -198,10 +198,10 @@ public class Main {
 		}
 
 		System.out.println(network);
+		System.out.println(network.getNetworkList() + "\n");
 
 		// Test with only 1 potential participant
-		System.out.println(network.getNetworkList() + "\n");
-		Task task = null;
+		/*Task task = null;
 		try {
 			task = member1.createTasks(cooking, 1, 4.5, false);
 		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
@@ -215,10 +215,77 @@ public class Main {
 		} catch (MissAmountException | TaskAlreadyExecuted e) {
 			e.printStackTrace();
 		}
-		System.out.println(network.getNetworkList());
+		System.out.println(network.getNetworkList());*/
+
 
 		// Test with multiple potential participant (1 needed and 2 needed)
+		// Gets aleatory member2 or member3
+		// Cost 34 coins
+		/*Task task = null;
+		try {
+			task = member1.createTasks(washing, 1, 4.5, false);
+		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		System.out.println(task.getCost());
+		try {
+			task.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted e) {
+			e.printStackTrace();
+		}
+		System.out.println(network.getNetworkList() + "\n");*/
 
-		// Test when beneficiary doesn't have enough when creates task and when executes (debits between)
+
+		// Test with multiple potential participant (2 needed)
+		/*Task task = null;
+		try {
+			task = member1.createTasks(washing, 2, 4.5, false);
+		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		System.out.println(task.getCost());
+		try {
+			task.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted e) {
+			e.printStackTrace();
+		}
+		System.out.println(network.getNetworkList() + "\n");*/
+
+
+	// Test when beneficiary doesn't have enough when creates task and when executes (debits between)
+		/*Task task = null;
+		// Doesn't have enough when Task created --> not created
+		try {
+			// Set the beneficiary to 0
+			System.out.println(member1.debitWallet(100));
+		} catch (MissAmountException e) {
+			e.printStackTrace();
+		}
+		try {
+			task = member1.createTasks(washing, 2, 4.5, false);
+		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		System.out.println(network.getNetworkList() + "\n");*/
+
+		Task task = null;
+		// Doesn't have enough when Task executed --> not finished
+		try {
+			task = member1.createTasks(washing, 2, 4.5, false);
+		} catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+		try {
+			// Set the beneficiary to 0
+			System.out.println(member1.debitWallet(100));
+		} catch (MissAmountException e) {
+			e.printStackTrace();
+		}
+		try{
+			task.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted e) {
+			e.printStackTrace();
+		}
+		System.out.println(network.getNetworkList() + "\n");
 	}
 }

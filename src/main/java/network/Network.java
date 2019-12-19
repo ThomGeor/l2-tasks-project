@@ -87,6 +87,26 @@ public class Network {
 	 * To really delete the Network you should unassign all variables of the Network and of the Members that are in the Network
 	 * */
 	public void delete(){
+		// Set all Member.network to null and remove the Member from memberList
+		Set<Member> copyMemberList = memberList;
+		for(Member member : copyMemberList){
+			// Wait to finish everything before removing Admin
+			if(!(member instanceof Admin)){
+				try {
+					member.setNetwork(null);
+					this.memberList.remove(member);
+				} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+					alreadyInNetwork.printStackTrace();
+				}
+			}
+		}
 
+		//	Set Admin.network to null
+		this.memberList.remove(admin);
+		try {
+			this.admin.setNetwork(null);
+		} catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
 	}
 }

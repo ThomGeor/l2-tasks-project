@@ -6,7 +6,7 @@ import exceptions.NotInNetwork;
 public class Admin extends Member { 
 	
     // Admin constructor
-    public Admin(int wallet, String name, SocialClass socialClass, String network) {
+    public Admin(int wallet, String name, SocialClass socialClass) {
         super(wallet, name, socialClass);
     }
 

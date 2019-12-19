@@ -19,6 +19,11 @@ public class Member {
         this.name = name;
         this.socialClass = socialClass;
         this.network = network;
+        try {
+            network.addMember(this);
+        } catch (AlreadyInNetwork | CantSetNetworkAdmin alreadyInNetwork) {
+            alreadyInNetwork.printStackTrace();
+        }
     }
 
     /** Member constructor without initial Network
@@ -65,7 +70,7 @@ public class Member {
 		if (this instanceof Admin) throw new CantSetNetworkAdmin("Cannot set a Network to an Admin, can only createNetwork", (Admin) this);
 		// Remove Member's Network
 		else if (network == null) this.network = null;
-		else if(this.network == null) this.network = network;
+		else if(this.network == null) ;
 		else throw new AlreadyInNetwork("First remove the Member from the Network first, or if Admin, delete it",this, this.network);
 		return network;
 	}

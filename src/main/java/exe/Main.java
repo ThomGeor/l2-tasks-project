@@ -7,9 +7,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TestMember();
-		// TestNetwork();
+		TestNetwork();
 		// TestServices();
-		TestTask();
+		// TestTask();
 	}
 
 	/*
@@ -19,10 +19,16 @@ public class Main {
 	 * */
 	public static void TestMember(){
 		// Try to create a Member
-		Member member1 = new Member(0, "Thomas", new SocialClassHalf());
+		Network network = null;
+		try {
+			network = (new Admin(100, "admin", new SocialClassNormal())).createNetwork("Network");
+		} catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		Member member1 = new Member(0, "Thomas", new SocialClassHalf(), network);
 
 		// Add in and remove from the wallet
-		member1.creditWallet(1000);
+		/*member1.creditWallet(1000);
 		System.out.println(member1.getWallet());
 		try {
 			member1.debitWallet(1000);
@@ -33,7 +39,7 @@ public class Main {
 
 
 		// Member.toString()
-		System.out.println(member1);
+		System.out.println(member1);*/
 
 
 		// Debit more than what he has
@@ -60,8 +66,9 @@ public class Main {
 		Admin admin = new Admin(1000, "admin", new SocialClassNormal());
 
 	//	Create a Network
+		Network network = null;
 		try {
-			admin.createNetwork("First Network");
+			network = admin.createNetwork("First Network");
 		} catch (AlreadyInNetwork alreadyInNetwork) {
 			alreadyInNetwork.printStackTrace();
 		}
@@ -128,7 +135,15 @@ public class Main {
 			alreadyInNetwork.printStackTrace();
 		}*/
 
-	//	Destruct a Network
+	//	Destruct a Network after adding different Member
+		network.createMember(0, "AAAAAA", new SocialClassZero());
+		network.createMember(0, "BBBBBB", new SocialClassNormal());
+		network.createMember(0, "CCCCCC", new SocialClassHalf());
+
+		System.out.println(network);
+		network.delete();
+		// Should set network to null
+		System.out.println(network);
 	}
 
 	/* Tests around Services and Member
@@ -268,7 +283,7 @@ public class Main {
 		}
 		System.out.println(network.getNetworkList() + "\n");*/
 
-		Task task = null;
+		/*Task task = null;
 		// Doesn't have enough when Task executed --> not finished
 		try {
 			task = member1.createTasks(washing, 2, 4.5, false);
@@ -286,6 +301,6 @@ public class Main {
 		} catch (MissAmountException | TaskAlreadyExecuted e) {
 			e.printStackTrace();
 		}
-		System.out.println(network.getNetworkList() + "\n");
+		System.out.println(network.getNetworkList() + "\n");*/
 	}
 }

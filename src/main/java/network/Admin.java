@@ -7,9 +7,10 @@ import exceptions.NotInNetwork;
  * TODO
  * deleteNetwork() --> remove all Members
  */
-public class Admin extends Member {
+public class Admin extends Member { 
+	
     // Admin constructor
-    public Admin(int wallet, String name, SocialClass socialClass) {
+    public Admin(int wallet, String name, SocialClass socialClass, String network) {
         super(wallet, name, socialClass);
     }
 

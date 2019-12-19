@@ -24,7 +24,7 @@ public class Member {
     /** Member constructor without initial Network
     * Have to affect to one after
     * */
-	public Member(int wallet, String name, SocialClass socialClass) {
+	protected Member(int wallet, String name, SocialClass socialClass) {
 		this.services = new HashSet<Service>();
 		this.wallet = wallet;
 		this.name = name;

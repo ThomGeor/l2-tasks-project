@@ -3,10 +3,6 @@ package network;
 import exceptions.AlreadyInNetwork;
 import exceptions.NotInNetwork;
 
-/**
- * TODO
- * deleteNetwork() --> remove all Members
- */
 public class Admin extends Member { 
 	
     // Admin constructor
@@ -39,6 +35,20 @@ public class Admin extends Member {
     	    return this.network.createMember(wallet, name, socialClass);
         }else{
             throw new NotInNetwork("Create a Network with this Admin before creating Members", this);
+        }
+    }
+
+    /**
+     * Delete the Network, set Admin's Network to null and all Members' too
+     * Empty the Set of Members
+     *
+     * @throws NotInNetwork
+     * */
+    public void deleteNetwork() throws NotInNetwork {
+        if(this.network == null){
+            throw new NotInNetwork("To delete a Network the Admin must be in one", this);
+        }else{
+
         }
     }
 }

@@ -7,9 +7,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TestMember();
-		TestNetwork();
+		// TestNetwork();
 		// TestServices();
 		// TestTask();
+		TestScenario(); 
 	}
 
 	/*
@@ -200,7 +201,7 @@ public class Main {
 
 		Service cooking = new Service("Cooking", 10);
 		Service washing = new Service("Washing Clothes", 15);
-		Service mowing = new Service("Mowing the Lawn", 5);
+		Service mowing  = new Service("Mowing the Lawn", 5);
 
 		try {
 			member2.addService(cooking);
@@ -303,4 +304,127 @@ public class Main {
 		}
 		System.out.println(network.getNetworkList() + "\n");*/
 	}
+	
+	public static void TestScenario() {
+		
+		SocialClassHalf socialClassHalf     = new SocialClassHalf(); 
+		SocialClassZero socialClassZero     = new SocialClassZero();
+		SocialClassNormal socialClassNormal = new SocialClassNormal();
+		
+		Network network   = null;
+		
+		Task task1        = null;
+		Task task2        = null;
+		Task task3        = null; 
+		
+		Service Sweep     = new Service("sweep", 50); 
+		Service Gardening = new Service("gardening", 25); 
+		Service WaxShoes  = new Service("waxShoes", 20); 
+		
+		Admin admin       = new Admin(100, "Carl", socialClassNormal); 
+		
+		Member member1; 
+		Member member2; 
+		Member member3; 
+		
+		try {
+			System.out.println("Création of the professionnal network");	
+			network = admin.createNetwork("Professionnal"); 
+		}
+		
+		catch (AlreadyInNetwork alreadyInNetwork) {
+			alreadyInNetwork.printStackTrace();
+		}
+		
+			System.out.println("Creation of the member Lucien in the network");
+			member1 = admin.createMember(100, "Lucien", socialClassHalf);
+			
+			System.out.println("Creation of the member Sebastion in the network");
+			member2 = admin.createMember(0, "Sebastien", socialClassNormal);
+			
+			System.out.println("Creation of the member Marie in the network");
+			member3 = admin.createMember(150, "Marie", socialClassHalf);
+			
+			System.out.println("Sebastien has : " + member2.getWallet());
+			System.out.println("add 20 jetons to Sebastien"); 
+			member2.creditWallet(20); 
+			System.out.println("here is the wallet of Sebastion now : " + member2.getWallet());
+			
+			System.out.println("Marie has : " + member2.getWallet());
+			System.out.println("Remove 10 jetons to Marie");
+			member3.debitWallet(10); 
+			System.out.println("here is the wallet of Marie now : " + member3.getWallet());
+		
+		try {
+			System.out.println("add service to Lucien and can do sweep");
+			member1.addService(Sweep);
+			
+			System.out.println("add service to Sebastien and can do gardening");
+			member1.addService(Gardening);
+			
+			System.out.println("add service to Marie and can do wax the shoes");
+			member1.addService(WaxShoes);
+		}
+		
+		catch (AlreadyHasService alreadyHasService) {
+			alreadyHasService.printStackTrace();
+		}
+
+			System.out.println(network);
+			System.out.println("Here is the network list : " + "\n" + network.getNetworkList() + "\n");
+			
+		try {
+			task1 = member1.createTasks(Gardening , 1, 4.5, false);
+		} 
+		
+		catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+			System.out.println("Here is the participant for the this task : " + task1.getParticipants());
+			System.out.println("Here is the cost of this task : " + task1.getCost()+ "\n");
+			
+		try {
+			task1.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted exception) {
+			exception.printStackTrace();
+		}
+		
+		System.out.println(network);
+		System.out.println("Here is the network list : " + "\n" + network.getNetworkList() + "\n");
+		
+		try {
+			task2 = member2.createTasks(sweep, 1, 3, false);
+		} 
+	
+		catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+			System.out.println("Here is the participant for the this task : " + task1.getParticipants());
+			System.out.println("Here is the cost of this task : " + task1.getCost()+ "\n");
+		
+		try {
+			task2.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted exception) {
+			exception.printStackTrace();
+		}
+		
+		System.out.println(network);
+		System.out.println("Here is the network list : " + "\n" + network.getNetworkList() + "\n");
+		
+		try {
+			task3 = member3.createTasks(WaxShoes, 3, 3, false);
+		} 
+	
+		catch (NotInNetwork | MissAmountException | TaskAlreadyExecuted | NotEnoughPotentielParticipants notInNetwork) {
+			notInNetwork.printStackTrace();
+		}
+			System.out.println("Here is the participant for the this task : " + task1.getParticipants());
+			System.out.println("Here is the cost of this task : " + task1.getCost()+ "\n");
+		
+		try {
+			task3.execute();
+		} catch (MissAmountException | TaskAlreadyExecuted exception) {
+			exception.printStackTrace();
+		}
+	}	
 }

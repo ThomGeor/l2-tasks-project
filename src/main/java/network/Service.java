@@ -50,5 +50,5 @@ public class Service {
      * */
     public int hashCode() {
         return this.name.hashCode();
-    }
+    }	
 }

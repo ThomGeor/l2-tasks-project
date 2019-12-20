@@ -58,11 +58,9 @@ public class Member {
 
 	/**
 	 *  Allows to:
-	* - affect a Member to a Network if not in one
-	* - change the Member's
-	* Must be called by a Network (addMember)
-	* TODO Must remove Member from Network if not null
-	*  TODO Careful for Admin
+     * - affect a Member to a Network if not in one
+     * - change the Member's
+     * Must be called by a Network (addMember)
 	 *
 	 * @return Network
 	* */
@@ -104,8 +102,10 @@ public class Member {
 	 *
 	 * @throws NotInNetwork
 	 * @throws MissAmountException
+	 * @throws TaskAlreadyExecuted
+	 * @throws NotEnoughPotentialParticipants
 	 * */
-	public Task createTasks(Service service, int numberParticipants, double duration, boolean volunteer) throws NotInNetwork, MissAmountException, TaskAlreadyExecuted, NotEnoughPotentielParticipants {
+	public Task createTasks(Service service, int numberParticipants, double duration, boolean volunteer) throws NotInNetwork, MissAmountException, TaskAlreadyExecuted, NotEnoughPotentialParticipants {
 		if(this.network != null){
 			// Check if the beneficiary has enough money
 			int cost = this.getSocialClass().calc((int)Math.ceil(service.getCost() * duration * numberParticipants));

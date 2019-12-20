@@ -5,12 +5,6 @@ package exceptions;
 public class MissAmountException extends Exception {
     private int missingAmount, walletAmount;
 
-    // 0 when not specified
-    public MissAmountException(String message) {
-        super(message);
-        this.missingAmount = 0;
-        this.walletAmount = 0;
-    }
     public MissAmountException(String message, int missingAmount, int walletAmount) {
         super(message);
         this.missingAmount = missingAmount;

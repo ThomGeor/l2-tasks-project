@@ -1,7 +1,7 @@
 package network;
 
 import exceptions.MissAmountException;
-import exceptions.NotEnoughPotentielParticipants;
+import exceptions.NotEnoughPotentialParticipants;
 import exceptions.TaskAlreadyExecuted;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Task {
     private boolean volunteer;
     private boolean executed; // The admin can finish it when participants are found
 
-    public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) throws TaskAlreadyExecuted, NotEnoughPotentielParticipants {
+    public Task(Service service, Member beneficiary, int numberParticipants, double duration, boolean volunteer) throws TaskAlreadyExecuted, NotEnoughPotentialParticipants {
         this.service = service;
         this.beneficiary = beneficiary;
         this.numberParticipants = numberParticipants;
@@ -66,10 +66,10 @@ public class Task {
 	 * Find all participants in the Beneficiary's Network
 	 * Allows to regenerate the participant list
 	 *
-	 * @throws NotEnoughPotentielParticipants
+	 * @throws NotEnoughPotentialParticipants
 	 * @throws TaskAlreadyExecuted
 	 * */
-	public void findParticipants() throws NotEnoughPotentielParticipants, TaskAlreadyExecuted {
+	public void findParticipants() throws NotEnoughPotentialParticipants, TaskAlreadyExecuted {
 		if(executed){
 			throw new TaskAlreadyExecuted("Can't find new participants if executed", this);
 		}
@@ -85,7 +85,7 @@ public class Task {
 
 		// If not enough Members purposing the Service in the Network
 		if(potentialParticipants.size() < this.numberParticipants){
-			throw new NotEnoughPotentielParticipants(
+			throw new NotEnoughPotentialParticipants(
 					this.numberParticipants,
 					this.numberParticipants-potentialParticipants.size(),
 					this.service,

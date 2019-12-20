@@ -4,12 +4,12 @@ import network.Service;
 
 /* Exception when there aren't enough participants to do the task in the Network
 * */
-public class NotEnoughPotentielParticipants extends Exception {
+public class NotEnoughPotentialParticipants extends Exception {
     private int neededParticipants;
     private int missingParticipants;
     private Service service;
 
-    public NotEnoughPotentielParticipants(int neededParticipants, int missingParticipants, Service service, String message){
+    public NotEnoughPotentialParticipants(int neededParticipants, int missingParticipants, Service service, String message){
         super(message);
         this.neededParticipants = neededParticipants;
         this.missingParticipants = missingParticipants;
